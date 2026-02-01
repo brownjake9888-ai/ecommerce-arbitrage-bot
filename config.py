@@ -14,6 +14,8 @@ EBAY_DEV_ID = os.getenv('EBAY_DEV_ID')
 EBAY_CERT_ID = os.getenv('EBAY_CERT_ID')
 EBAY_AUTH_TOKEN = os.getenv('EBAY_AUTH_TOKEN')
 EBAY_SANDBOX = os.getenv('EBAY_SANDBOX', 'False') == 'True'
+EBAY_PAYPAL_EMAIL = os.getenv('EBAY_PAYPAL_EMAIL', 'payments@example.com')
+EBAY_POSTAL_CODE = os.getenv('EBAY_POSTAL_CODE', '10001')
 
 # Shopify Configuration
 SHOPIFY_API_KEY = os.getenv('SHOPIFY_API_KEY')

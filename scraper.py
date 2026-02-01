@@ -19,7 +19,11 @@ class Scraper:
         self.stealth = StealthManager()
         
     def scrape_amazon(self, url: str) -> Optional[Dict]:
-        """Scrape product data from Amazon."""
+        """
+        Scrape product data from Amazon.
+        
+        Note: Requires lxml parser to be installed (included in requirements.txt)
+        """
         try:
             headers = self.stealth.get_headers()
             proxies = self.stealth.get_proxy()
@@ -74,7 +78,11 @@ class Scraper:
             return None
     
     def scrape_walmart(self, url: str) -> Optional[Dict]:
-        """Scrape product data from Walmart."""
+        """
+        Scrape product data from Walmart.
+        
+        Note: Requires lxml parser to be installed (included in requirements.txt)
+        """
         try:
             headers = self.stealth.get_headers()
             proxies = self.stealth.get_proxy()

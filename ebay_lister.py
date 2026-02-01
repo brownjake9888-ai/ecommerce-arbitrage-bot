@@ -2,7 +2,10 @@
 import logging
 from typing import Dict, Optional
 from ebaysdk.trading import Connection as Trading
-from config import EBAY_APP_ID, EBAY_DEV_ID, EBAY_CERT_ID, EBAY_AUTH_TOKEN, EBAY_SANDBOX
+from config import (
+    EBAY_APP_ID, EBAY_DEV_ID, EBAY_CERT_ID, EBAY_AUTH_TOKEN, 
+    EBAY_SANDBOX, EBAY_PAYPAL_EMAIL, EBAY_POSTAL_CODE
+)
 
 logger = logging.getLogger(__name__)
 
@@ -73,11 +76,11 @@ class EbayLister:
                     'ListingDuration': 'Days_7',
                     'ListingType': 'FixedPriceItem',
                     'PaymentMethods': 'PayPal',
-                    'PayPalEmailAddress': 'payments@example.com',
+                    'PayPalEmailAddress': EBAY_PAYPAL_EMAIL,
                     'PictureDetails': {
                         'PictureURL': [image_url] if image_url else []
                     },
-                    'PostalCode': '10001',
+                    'PostalCode': EBAY_POSTAL_CODE,
                     'Quantity': '1',
                     'ReturnPolicy': {
                         'ReturnsAcceptedOption': 'ReturnsAccepted',
