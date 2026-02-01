@@ -140,14 +140,28 @@ class Scraper:
             return None
     
     async def scrape_async(self, url: str) -> Optional[Dict]:
-        """Async scraping method."""
-        # Determine source from URL
-        if 'amazon.com' in url:
-            return await asyncio.to_thread(self.scrape_amazon, url)
-        elif 'walmart.com' in url:
-            return await asyncio.to_thread(self.scrape_walmart, url)
-        else:
-            logger.warning(f"Unknown source for URL: {url}")
+        """Async scraping method with secure domain validation."""
+        from urllib.parse import urlparse
+        
+        # Parse URL to validate domain
+        try:
+            parsed = urlparse(url)
+            domain = parsed.netloc.lower()
+            
+            # Whitelist of trusted domains (exact match or subdomain)
+            # This prevents malicious URLs like "evil.com/amazon.com"
+            amazon_domains = ['amazon.com', 'www.amazon.com']
+            walmart_domains = ['walmart.com', 'www.walmart.com']
+            
+            if domain in amazon_domains or any(domain.endswith('.' + d) for d in amazon_domains):
+                return await asyncio.to_thread(self.scrape_amazon, url)
+            elif domain in walmart_domains or any(domain.endswith('.' + d) for d in walmart_domains):
+                return await asyncio.to_thread(self.scrape_walmart, url)
+            else:
+                logger.warning(f"Unknown or untrusted source domain: {domain}")
+                return None
+        except Exception as e:
+            logger.error(f"Error parsing URL {url}: {e}")
             return None
     
     async def scrape_multiple(self, urls: List[str]) -> List[Dict]:
